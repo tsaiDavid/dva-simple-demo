@@ -3,20 +3,37 @@ import { Card, Icon, Form, Input } from 'antd';
 import { connect } from 'dva';
 
 class TodoList extends PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       item: ''
     }
   }
 
-  renderTodos() {
-    return this.props.todos.map((el) => {
+  handleAddTodo = () => {
+    this.props.dispatch({
+      // This action type is namespaced, look at `models/todos.js`
+      type: 'todos/addTodo',
+      text: this.state.item
+    })
+    this.setState({ item: '' })
+  }
+
+  handleDeleteTodo = (id) => () => {
+    this.props.dispatch({
+      type: 'todos/deleteTodo',
+      id
+    })
+  }
+
+  renderTodos = () => {
+    return this.props.todos.map((todo, index) => {
       return (
         <Card
-          actions={[<Icon type="delete" />]}
+          key={`${todo.id}-${index}`}
+          actions={[<Icon type="delete" onClick={this.handleDeleteTodo(todo.id)} />]}
         >
-          {el}
+          {todo.text}
         </Card>
       )
     })
@@ -34,23 +51,24 @@ class TodoList extends PureComponent {
               this.setState({ item: e.target.value })
             }}
           />
-          <input type="submit" value="Submit" />
+          <Input type="submit" value="Submit" />
         </Form>
+        {this.renderTodos()}
       </div>
     )
   }
 }
 
-export default connect(({ todo }) => {
-  todos: todo.todos
-})(TodoList);
+export default connect(({ todos }) => ({
+  todos
+}))(TodoList);
 
 /**
  * The above is the shorthand equivalent of writing the following:
  * 
- * function mapStateToProps({ todo }) {
+ * function mapStateToProps({ todos }) {
  *   return {
- *     todos: todo.todos
+ *     todos: todos
  *   }
  * }
  * 
