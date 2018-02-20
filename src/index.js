@@ -1,6 +1,9 @@
 import dva from 'dva';
 import './index.css';
 
+// https://github.com/ant-design/ant-design
+import 'antd/dist/antd.css';
+
 // 1. Initialize
 const app = dva();
 
