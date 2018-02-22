@@ -8,8 +8,11 @@
   },
   "dependencies": {
     "antd": "^3.2.1",
+    "apollo-boost": "^0.1.1",
     "dva": "^2.1.0",
+    "graphql": "^0.13.1",
     "react": "^16.2.0",
+    "react-apollo": "^2.1.0-beta.2",
     "react-dom": "^16.2.0"
   },
   "devDependencies": {
