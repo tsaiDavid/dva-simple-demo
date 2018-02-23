@@ -32,14 +32,16 @@ class PupsList extends PureComponent {
     })
   }
 
-  /**
-   * https://dev-blog.apollodata.com/whats-next-for-react-apollo-4d41ba12c2cb
-   * In the upcoming Apollo, they provide a <Query /> component
-  */
   render() {
+    /**
+     * https://dev-blog.apollodata.com/whats-next-for-react-apollo-4d41ba12c2cb
+     * 
+     * In the upcoming Apollo, they provide a Query component. See link for details.
+     * Currently only in beta only, but expect to see this soon.
+     */
     return (
       <Query query={GET_DOGS}>
-        {/* These are properties of the `result` object */}
+        {/* loading, error, and data are properties of the `result` object */}
         {({ loading, error, data }) => {
           if (loading) return <Spin />;
           if (error) return <div>Shoot! We encountered an error!</div>;
@@ -51,5 +53,5 @@ class PupsList extends PureComponent {
   }
 }
 
-// This part hasn't changed, so we still have access to our Redux store
+// This is still whatever DVA would have done before.
 export default connect()(PupsList);
